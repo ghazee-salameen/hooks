@@ -51,19 +51,4 @@ class Duplicater {
       duplicaterColumnsName.cCounter: cCounter.toString(),
     };
   }
-
-  @override
-  String toString() {
-    // TODO: implement toString
-
-    return '''Duplicater(
-                ID:$ID,
-schoolID:$schoolId,
-duplicaterType:$duplicaterType,
-duplicaterModel:$duplicaterModel,
-duplicaterDate: $duplicaterDate,
-mCounter: $mCounter,
-cCounter: $cCounter
-    ) ''';
-  }
 }

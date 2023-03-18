@@ -32,7 +32,7 @@ class SchoolModelColumn {
   static const String wirelessNetwork = 'wirelessNetwork';
   static const String attendanceClock = 'attendanceClock';
   static const String tecLab = 'tecLab';
-  static const String lanNetWork = 'lanNetWork';
+  static const String lanNetWork = 'lanNetwork';
   static const String internet = 'internet';
   static const String internetSpeed = 'internetSpeed';
 }
@@ -77,7 +77,7 @@ class SchoolModel {
         library: json['library'] == '0' ? 0 : 1,
         wirelessNetwork: json['wirelessNetwork'] == '0' ? 0 : 1,
         attendanceClock: json['attendanceClock'] == '0' ? 0 : 1,
-        lanNetWork: json['lanNetWork'] == '0' ? 0 : 1,
+        lanNetWork: json['lanNetwork'] == '0' ? 0 : 1,
         internet: json['internet'] == '0' ? 0 : 1,
         internetSpeed: json['internetSpeed']);
   }
@@ -96,6 +96,25 @@ class SchoolModel {
       SchoolModelColumn.internet: internet,
       SchoolModelColumn.internetSpeed: internetSpeed,
     };
+  }
+
+  @override
+  String toString() {
+    return '''
+SchoolModel(
+        ID: $ID,
+        schoolID:$schoolID,
+        schoolName: $schoolName,
+        computerLab: $computerLab,
+        tecLab: $tecLab,
+        sinceLab: $sinceLab,
+        library: $library,
+        wirelessNetwork: $wirelessNetwork,
+        attendanceClock: $attendanceClock,
+        lanNetWork: $lanNetWork,
+        internet: $internet,
+        internetSpeed: $internetSpeed)
+ ''';
   }
 }
 
