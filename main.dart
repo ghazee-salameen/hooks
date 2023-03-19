@@ -133,8 +133,8 @@ class HomePage extends HookWidget {
 
                               return GestureDetector(
                                 onTap: () {
-                                  controller.getmaindata(
-                                      option.sid.toString(), '');
+                                  // controller.getmaindata(
+                                  //     option.sid.toString(), '');
                                   onSelected(option);
                                   context.go('/school/${option.sid}');
                                 },

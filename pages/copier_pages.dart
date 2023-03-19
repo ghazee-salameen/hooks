@@ -18,19 +18,23 @@ class CopierMenu extends HookWidget {
   @override
   Widget build(BuildContext context) {
     Future<String> _fetchData() async {
-      copiers = await apiServices.getfrom(schoolID, 'copierTbl');
-      Future.delayed(Duration(seconds: 1));
-      if (kDebugMode) {
-        print(copiers[0].toString());
+      String result = ' Done';
+      int count = await apiServices.getCountAll(schoolID, 'copierTbl');
+      //print('fetch:  ${count.toString()}');
+      if (count > 0) {
+        copiers = await apiServices.getfrom(schoolID, 'copierTbl');
+        Future.delayed(Duration(seconds: 1));
+        if (kDebugMode) {
+          print(copiers[0].toString());
+        }
+        return 'Hello';
+      } else {
+        result = 'no data foud';
       }
-      return 'Hello';
+
+      return result;
     }
 
-    // Future<void> _displayTextInputDialog(BuildContext context) async {
-    //   // return const Text('data');
-    //   //return AddNewCopier(schoolID: schoolID);
-    //   context.go('/addCopier/$schoolID');
-    // }
     Future<void> _displayTextInputDialog(BuildContext context) async {
       return showDialog(
           context: context,

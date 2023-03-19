@@ -24,9 +24,9 @@ class Printer {
     return Printer(
         ID: int.parse(json['ID']),
         schoolId: json['schoolID'],
-        printerType: json['printerType'],
-        printerModel: json['printerModel'],
-        printerDate: json['printerDate']);
+        printerType: json['printerType'].toString(),
+        printerModel: json['printerModel'].toString(),
+        printerDate: json['printerDate'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -36,5 +36,16 @@ class Printer {
       PrinterColumnName.printerModel: printerModel,
       PrinterColumnName.printerDate: printerDate,
     };
+  }
+
+  String toString() {
+    return '''
+ ID: $ID,
+        schoolId: $schoolId,
+        printerType: $printerType,
+        printerModel: $printerModel,
+        printerDate: $printerDate,
+
+''';
   }
 }

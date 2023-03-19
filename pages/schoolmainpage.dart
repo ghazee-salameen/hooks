@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hook/models/school.dart';
-
 import '../controller/school_controller.dart';
 import '../models/choice.dart';
 import '../services/apiservice.dart';
@@ -57,12 +56,20 @@ class MainPage extends HookWidget {
 
     //GetController controller = Get.put(GetController());
     Future<String> _fetchData() async {
-      school = await apiServices.getmaindata('27112272', 'table');
-      Future.delayed(Duration(seconds: 1));
-      if (kDebugMode) {
-        print(school.toString());
+      String text = 'done';
+      try {
+        school = await apiServices.getmaindata(schoolID, 'table');
+        Future.delayed(Duration(seconds: 1));
+        // if (kDebugMode) {
+        //   print(school.toString());
+        // }
+        text = 'Done';
+      } catch (e) {
+        print('Error $e');
+        text = 'Error $e';
+      } finally {
+        return text;
       }
-      return 'Hello';
     }
 
     final future = useMemoized(_fetchData);
@@ -401,7 +408,7 @@ class MainPage extends HookWidget {
                               ),
                               onPressed: () {
                                 if (kDebugMode) {
-                                 // print(apiServices.isWorking.value);
+                                  // print(apiServices.isWorking.value);
                                 }
 
                                 context.go('/menu/${school.schoolID}');
@@ -463,7 +470,7 @@ class PageMenu extends StatelessWidget {
       body: Center(
         child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 3,
               crossAxisSpacing: 30,
               mainAxisSpacing: 30,
             ),
@@ -503,27 +510,28 @@ class SelectCard extends GetView<GetController> {
                   }
                   switch (choice.deviceid) {
                     case 1:
-                      context.go('/copier/${controller.schools[0].schoolID}');
+                      context.go('/copier/${schoolID}');
                       break;
                     case 2:
-                      context
-                          .go('/duplicater/${controller.schools[0].schoolID}');
+                      context.go('/duplicater/${schoolID}');
                       if (kDebugMode) {
                         print('test2');
                       }
                       break;
                     case 3:
-                      context.go('/lcd/${controller.schools[0].schoolID}');
+                      context.go('/lcd/${schoolID}');
                       break;
                     case 4:
-                      context.go('/printer/${controller.schools[0].schoolID}');
+                      context.go('/printer/${schoolID}');
                       break;
                     case 5:
-                      context.go('/wireless/${controller.schools[0].schoolID}');
+                      context.go('/wireless/${schoolID}');
                       break;
                     case 6:
-                      context
-                          .go('/facilities/${controller.schools[0].schoolID}');
+                      context.go('/facilities/${schoolID}');
+                      break;
+                    case 9:
+                      context.go('/attendance/${schoolID}');
                       break;
                     default:
                       if (kDebugMode) {

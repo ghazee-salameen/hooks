@@ -54,7 +54,7 @@ class Copier {
   @override
   String toString() {
     return '''
-SchoolModel(
+
         ID: $ID,
         schoolID:$schoolId,
         copierType: $copierType,

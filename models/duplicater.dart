@@ -51,4 +51,17 @@ class Duplicater {
       duplicaterColumnsName.cCounter: cCounter.toString(),
     };
   }
+
+  String toString() {
+    return '''
+
+        ID: $ID,
+      schoolId: $schoolId,
+      duplicaterType: $duplicaterType,
+      duplicaterModel: $duplicaterModel,
+      duplicaterDate: $duplicaterDate,
+      mCounter: $mCounter,
+      cCounter: $cCounter,
+''';
+  }
 }

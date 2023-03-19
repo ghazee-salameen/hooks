@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:hook/models/attendance.dart';
+
 import '../models/duplicater.dart';
 import '../models/facilities.dart';
 import '../models/lcd.dart';
@@ -59,6 +61,34 @@ class ApiServices {
       throw Exception(response.reasonPhrase);
     }
   }
+// get count * from any table to fetch data if Exist
+
+  Future<int> getCountAll(String schoolID, String table) async {
+    int count = 0;
+    String path = 'public/getcount.php?';
+    String str = 'schoolID=$schoolID&table=$table';
+    path = apipath + path + str;
+    //Response response = await get(Uri.parse(mainEndPoint));
+
+    try {
+      Response response = await get(Uri.parse(path));
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body)['data'];
+        //print('res : ${result[1]['ID']}');
+        count = int.parse(result[0]['count(*)']);
+        if (kDebugMode) {
+          print('get count= $count');
+        }
+        return count;
+      } else {
+        throw Exception(response.reasonPhrase);
+      }
+    } catch (e) {
+      print('Error $e');
+    } finally {
+      return count;
+    }
+  }
 
   // get data from any table you want
 
@@ -87,7 +117,24 @@ class ApiServices {
     Response response = await get(Uri.parse(path));
     if (response.statusCode == 200) {
       final List result = jsonDecode(response.body)['data'];
+      print(result[0].toString());
       return result.map((e) => Duplicater.fromJson(e)).toList();
+    } else {
+      print('api');
+      throw Exception(response.reasonPhrase);
+    }
+  }
+
+  // getData from Attendance
+
+  Future<List<Attendance>> getfromatt(String schoolID, String table) async {
+    String path = 'schools/readfrom.php?';
+    String str = 'schoolID=$schoolID&table=$table';
+    path = apipath + path + str;
+    Response response = await get(Uri.parse(path));
+    if (response.statusCode == 200) {
+      final List result = jsonDecode(response.body)['data'];
+      return result.map((e) => Attendance.fromJson(e)).toList();
     } else {
       print('api');
       throw Exception(response.reasonPhrase);
@@ -112,6 +159,18 @@ class ApiServices {
 // delete Duplicater
   Future<String> deleteCopier(int ID) async {
     String deletestr = 'copier/delete.php?ID=$ID';
+    deletestr = apipath + deletestr;
+    Response response = await delete(Uri.parse(deletestr));
+    if (response.statusCode == 200) {
+      return 'done';
+    } else {
+      throw Exception(response.reasonPhrase);
+    }
+  }
+
+  // delete Attendance
+  Future<String> deleteAttendance(int ID) async {
+    String deletestr = 'attendance/delete.php?ID=$ID';
     deletestr = apipath + deletestr;
     Response response = await delete(Uri.parse(deletestr));
     if (response.statusCode == 200) {
@@ -146,6 +205,30 @@ class ApiServices {
 
   Future<dynamic> updateCopierData(Map body, int ID) async {
     String updateStr = "copier/update.php?ID=$ID";
+    updateStr = apipath + updateStr;
+    try {
+      Response response =
+          await put(Uri.parse(updateStr), body: jsonEncode(body));
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('done');
+        }
+      } else {
+        if (kDebugMode) {
+          print(' error not done');
+        }
+        throw jsonDecode(response.body)['meta']['message'] ?? " unknoun Error ";
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('error e');
+      }
+    }
+  }
+
+  // update attendance
+  Future<dynamic> updateAttendanceData(Map body, int ID) async {
+    String updateStr = "attendance/update.php?ID=$ID";
     updateStr = apipath + updateStr;
     try {
       Response response =
@@ -301,6 +384,24 @@ class ApiServices {
       //   "counter": "300"
       // };
 
+      Response response =
+          await post(Uri.parse(insertStr), body: jsonEncode(body));
+      if (response.statusCode == 200) {
+        print('done ');
+      } else {
+        print('post error not done ${response.body}');
+        // throw jsonDecode(response.body)['meta']['message'] ?? " unknoun Error ";
+      }
+    } catch (e) {
+      print('error e');
+    }
+  }
+
+//add attendance
+  Future<dynamic> addAttendanceData(Map body) async {
+    String insertStr = "attendance/create.php";
+    insertStr = apipath + insertStr;
+    try {
       Response response =
           await post(Uri.parse(insertStr), body: jsonEncode(body));
       if (response.statusCode == 200) {

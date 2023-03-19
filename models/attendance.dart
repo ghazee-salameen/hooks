@@ -12,19 +12,18 @@ class Attendance {
 
   factory Attendance.fromJson(Map<String, dynamic> json) {
     return Attendance(
-      ID: json['ID'],
-      schoolID: json['schoolID'],
-      attendanceType: json['attendanceType'],
-      attendanceExist: json['attendanceExist'],
+      ID: int.parse(json['ID']),
+      schoolID: json['schoolID'].toString(),
+      attendanceType: json['attendanceType'].toString(),
+      attendanceExist: json['attendanceExist'] == false ? false : true,
     );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = ID;
-    data['schoolID'] = schoolID;
-    data['attendanceType'] = attendanceType;
-    data['attendanceExist'] = attendanceExist;
-    return data;
+    return {
+      'schoolID': schoolID,
+      'attendanceType': attendanceType,
+      'attendanceExist': attendanceExist.toString()
+    };
   }
 }
