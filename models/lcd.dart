@@ -40,4 +40,14 @@ class Lcd {
       LcdColumnsName.lcdDate: lcdDate,
     };
   }
+
+  String toString() {
+    return '''
+ ID: $ID,
+      schoolId: $schoolId,
+      lcdType: $lcdType,
+      lcdModel: $lcdModel,
+      lcdDate: $lcdDate,
+''';
+  }
 }

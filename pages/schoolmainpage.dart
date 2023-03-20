@@ -470,10 +470,10 @@ class PageMenu extends StatelessWidget {
       body: Center(
         child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 30,
-              mainAxisSpacing: 30,
-            ),
+                crossAxisCount: 2,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 30,
+                childAspectRatio: 1.1),
             itemCount: choices.length,
             itemBuilder: (BuildContext context, int index) {
               return SelectCard(
@@ -501,7 +501,7 @@ class SelectCard extends GetView<GetController> {
         width: hight * .2,
         height: hight * .2,
         child: Card(
-            color: Colors.blue[800],
+            color: choice.deviceid.isOdd ? Colors.blue[800] : Colors.black12,
             child: Center(
               child: InkWell(
                 onTap: () {
@@ -545,7 +545,7 @@ class SelectCard extends GetView<GetController> {
                       Expanded(
                           child: Icon(choice.icon,
                               size: 50.0, color: textstyle.color)),
-                      Text(choice.title, style: textstyle),
+                      Text(choice.title, style: text),
                     ]),
               ),
             )),

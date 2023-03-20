@@ -21,7 +21,7 @@ class DuplicaterMenu extends HookWidget {
       //print('fetch:  ${count.toString()}');
       if (count > 0) {
         duplicaters = await apiServices.getfromdup(schoolID, 'duplicaterTbl');
-        Future.delayed(Duration(seconds: 1));
+        Future.delayed(const Duration(seconds: 1));
         duplicater = duplicaters[0];
         if (kDebugMode) {
           print(duplicater.toString());
@@ -76,14 +76,14 @@ class DuplicaterMenu extends HookWidget {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : duplicaters.length > 0
+            : duplicaters.isNotEmpty
                 ? ListView.builder(
                     itemCount: duplicaters.length,
                     itemBuilder: (context, index) => DuplicaterCard(
                       duplicater: duplicaters[index],
                     ),
                   )
-                : Center(child: Text('No Data Found')),
+                : const Center(child: Text('No Data Found')),
       ),
     );
   }
@@ -328,7 +328,7 @@ class AddNewDuplicater extends HookWidget {
       child: SizedBox(
         height: 600,
         child: AlertDialog(
-          title: Text('بيانات ماكنة السحب'),
+          title: const Text('بيانات ماكنة السحب'),
           content: Column(
             children: [
               Row(
@@ -369,11 +369,11 @@ class AddNewDuplicater extends HookWidget {
                   duplicater.duplicaterModel = value;
                 },
                 controller: _modelController,
-                decoration: InputDecoration(label: Text("موديل الماكنة")),
+                decoration: const InputDecoration(label: Text("موديل الماكنة")),
               ),
               TextField(
                 controller: _companyController,
-                decoration: InputDecoration(label: Text('  تاريخ الادخال')),
+                decoration: const InputDecoration(label: Text('  تاريخ الادخال')),
                 onChanged: (value) {
                   // widget.copier.copierCo = _companyController.text;
 
@@ -388,7 +388,7 @@ class AddNewDuplicater extends HookWidget {
                 },
                 controller: _counterController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   label: Text('عداد الماكنة'),
                 ),
               ),
@@ -400,7 +400,7 @@ class AddNewDuplicater extends HookWidget {
                 },
                 controller: _mcounterController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   label: Text('عداد الماستر'),
                 ),
               ),
@@ -408,13 +408,13 @@ class AddNewDuplicater extends HookWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('CANCEL'),
+              child: const Text('CANCEL'),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 codeDialog = valueText;
                 duplicater.schoolId = schoolID;

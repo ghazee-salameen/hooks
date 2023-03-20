@@ -23,7 +23,7 @@ class CopierMenu extends HookWidget {
       //print('fetch:  ${count.toString()}');
       if (count > 0) {
         copiers = await apiServices.getfrom(schoolID, 'copierTbl');
-        Future.delayed(Duration(seconds: 1));
+        Future.delayed(const Duration(seconds: 1));
         if (kDebugMode) {
           print(copiers[0].toString());
         }
@@ -72,7 +72,7 @@ class CopierMenu extends HookWidget {
                 onPressed: () {
                   context.go('/menu/$schoolID');
                 },
-                icon: Icon(Icons.backspace),
+                icon: const Icon(Icons.backspace),
               ),
             ],
           ),
@@ -83,13 +83,15 @@ class CopierMenu extends HookWidget {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Center(
+            : copiers.isNotEmpty ?
+             Center(
                 child: ListView.builder(
                     itemCount: copiers.length,
                     itemBuilder: (context, index) {
                       return CopierCard(copier: copiers[index]);
                     }),
-              ),
+              ):
+              const Center(child: Text('No Data Found')),
       ),
     );
   }
@@ -399,7 +401,7 @@ class AddNewCopier extends HookWidget {
             children: [
               Row(
                 children: [
-                  Text('بيانات ماكنة التصوير'),
+                  const Text('بيانات ماكنة التصوير'),
                   Expanded(
                     flex: 1,
                     child: Text(

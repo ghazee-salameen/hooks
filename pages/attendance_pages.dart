@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hook/models/attendance.dart';
-
 import '../services/apiservice.dart';
 import '../utils/style.dart';
 
@@ -22,7 +21,7 @@ class AttendancePages extends HookWidget {
       //print('fetch:  ${count.toString()}');
       if (count > 0) {
         attendances = await apiServices.getfromatt(schoolID, 'attendanceTbl');
-        Future.delayed(Duration(seconds: 1));
+        Future.delayed(const Duration(seconds: 1));
         attendance = attendances[0];
         if (kDebugMode) {
           print(attendance.toString());
@@ -77,14 +76,14 @@ class AttendancePages extends HookWidget {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : attendances.length > 0
+            : attendances.isNotEmpty
                 ? ListView.builder(
                     itemCount: attendances.length,
                     itemBuilder: (context, index) => AttendaceCard(
                       attendance: attendances[index],
                     ),
                   )
-                : Center(child: Text('No Data Found')),
+                : const Center(child: Text('No Data Found')),
       ),
     );
   }
@@ -310,7 +309,7 @@ class AddNewAttendance extends HookWidget {
         height: 400,
         child: AlertDialog(
           scrollable: true,
-          title: Text('بيانات الساعة '),
+          title: const Text('بيانات الساعة '),
           content: Column(
             children: [
               Row(
@@ -348,13 +347,13 @@ class AddNewAttendance extends HookWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('CANCEL'),
+              child: const Text('CANCEL'),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 codeDialog = valueText;
                 attendance.attendanceExist = true;

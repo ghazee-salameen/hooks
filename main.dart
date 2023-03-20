@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hook/models/school.dart';
 import 'package:hook/route/route.dart';
 import 'package:hook/services/apiservice.dart';
+import 'controller/custom_class.dart';
 import 'controller/school_controller.dart';
 
 void main() {
@@ -88,6 +90,7 @@ class SchoolCard extends HookWidget {
 class HomePage extends HookWidget {
   HomePage({super.key});
   ApiServices apiServices = ApiServices();
+  GetData getdata = GetData();
   @override
   Widget build(BuildContext context) {
     GetController controller = Get.put(GetController());
@@ -133,8 +136,6 @@ class HomePage extends HookWidget {
 
                               return GestureDetector(
                                 onTap: () {
-                                  // controller.getmaindata(
-                                  //     option.sid.toString(), '');
                                   onSelected(option);
                                   context.go('/school/${option.sid}');
                                 },
@@ -165,7 +166,9 @@ class HomePage extends HookWidget {
                       onTap: () {
                         //apiServices.getmaindata
                         //controller.getmaindata('27112272', 'table');
-
+                      
+                         // getdata.fetchData();
+                        
                         context.go('/test2');
                       },
                       child: ListTile(

@@ -5,8 +5,12 @@ import '../main.dart';
 
 import '../pages/copier_pages.dart';
 import '../pages/duplicater_pages.dart';
+import '../pages/facilities_pages.dart';
+import '../pages/lcd_pages.dart';
 import '../pages/printer_pages.dart';
 import '../pages/schoolmainpage.dart';
+import '../pages/testpage.dart';
+import '../pages/wireless_pages.dart';
 
 final GoRouter router = GoRouter(routes: <GoRoute>[
   GoRoute(routes: <GoRoute>[
@@ -46,33 +50,33 @@ final GoRouter router = GoRouter(routes: <GoRoute>[
         schoolID: state.params["schoolID"]!,
       ),
     ),
-    // GoRoute(
-    //   path: 'lcd/:schoolID',
-    //   builder: (context, state) => LcdPages(
-    //     schoolID: state.params["schoolID"]!,
-    //   ),
-    // ),
-    // GoRoute(
-    //   path: 'facilities/:schoolID',
-    //   builder: (context, state) => FacilitiesMenu(
-    //     schoolID: state.params["schoolID"]!,
-    //   ),
-    // ),
-    // GoRoute(
-    //   path: 'wireless/:schoolID',
-    //   builder: (context, state) => WirelessMenu(
-    //     schoolID: state.params["schoolID"]!,
-    //   ),
-    // ),
+    GoRoute(
+      path: 'lcd/:schoolID',
+      builder: (context, state) => LcdPages(
+        schoolID: state.params["schoolID"]!,
+      ),
+    ),
+    GoRoute(
+      path: 'facilities/:schoolID',
+      builder: (context, state) => FacilitiesMenu(
+        schoolID: state.params["schoolID"]!,
+      ),
+    ),
+    GoRoute(
+      path: 'wireless/:schoolID',
+      builder: (context, state) => WirelessMenu(
+        schoolID: state.params["schoolID"]!,
+      ),
+    ),
     GoRoute(
       path: 'duplicater/:schoolID',
       builder: (context, state) => DuplicaterMenu(
         schoolID: state.params["schoolID"]!,
       ),
     ),
-    // GoRoute(
-    //   path: 'test2',
-    //   builder: (context, state) => TestPage2(),
-    // ),
+    GoRoute(
+      path: 'test2',
+      builder: (context, state) => TestPage2(),
+    ),
   ], path: '/', builder: ((context, state) => HomePage()))
 ]);
